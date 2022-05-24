@@ -1,0 +1,22 @@
+---
+title: "Week 3 Assignment"
+author: "Shelby F"
+date: "5/24/2022"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(ggplot2)
+library(plotly)
+```
+
+## Box Plot of Chicken Weight by Diet Type
+24 May 2022
+
+```{r plotly, echo = FALSE}
+data(ChickWeight)
+fig <- plot_ly(ChickWeight, x= ~weight, color= ~Diet, type = "box") %>% layout(title = 'Chicken Weight by Diet')
+fig
+```
+
