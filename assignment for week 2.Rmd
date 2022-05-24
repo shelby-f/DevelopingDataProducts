@@ -1,0 +1,29 @@
+---
+title: "Assignment for Week 2"
+author: "Shelby F"
+date: "5/24/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Week 2 Assignment for Coursera Developing Data Products course
+
+## Interactive Map of My Alma Maters
+
+Created using Leaflet:
+
+```{r map, echo = FALSE}
+# install.packages("leaflet")
+library(leaflet)
+
+almamaters <- data.frame(lat = c(21.296971620819853, 38.989025323866755), lng = c(-157.81614663866748, -76.93761520921237), name = c("U of Hawaii", "U of Maryland")) 
+
+almamaters %>%
+leaflet() %>%
+  addTiles() %>%
+  addMarkers(label = almamaters$name)
+
+```
