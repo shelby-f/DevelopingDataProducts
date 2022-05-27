@@ -1,0 +1,81 @@
+---
+title: "Developing Data Products Final Projest"
+author: "Shelby F"
+date: "5/25/2022"
+output: ioslides_presentation
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(shiny)
+library(plotly)
+data("CO2")
+```
+
+## Shiny App for Box Plots 
+
+This Shiny App use the built in data set, CO2 and creates a box plot. The user can select the data to plot and what variable to separate it by. 
+
+## CO2 Data
+
+The CO2 Data Set compares 3 plants with 2 controlled variables. The first, two locations and second, two temperatures. 
+
+Cities
+- Quebec
+- Mississippi 
+
+Conditions (Treatment)
+- Non chilled
+- Chilled
+
+## App Inputs
+
+The user has a drop down menu to select CO2 Concentration or Uptake to be plotted.
+They then select the variable, they can select to see all 12 plant variations, or by temperature or location. 
+The app will update in real time and the labels are interactive.
+
+## Slide with Plot
+
+```{r shiny plot}
+shinyApp(
+
+  ui = fluidPage(
+     # Application title
+    titlePanel("Carbon Dioxide Uptake in Grass Plants"),
+    helpText("Using R built in CO2 dataset, compares 3 plants, 
+             in 2 locations, under 2 treatments."),
+
+    # Sidebar with a slider input for number of bins
+    sidebarLayout(
+        sidebarPanel(
+
+            selectInput("var", 
+                        label = ("Select variable"),
+                        choices = c("Plant",
+                                    "Location",
+                                    "Treatment"),
+                        selected = "Plant"),
+        ), #end side bar panel
+        
+    # Show a plot of the generated distribution
+    
+    mainPanel(plotlyOutput("boxplot"))
+  )
+), #end fluid page
+
+  server = function(input, output) {
+     output$boxplot <- renderPlotly({
+      
+      var <- switch(input$var,
+                    "Plant" = CO2$Plant,
+                    "Location" = CO2$Type,
+                    "Treatment" = CO2$Treatment)
+      
+      plot_ly(CO2, x= ~uptake, color= var, type="box")
+    })
+  },
+
+  options = list(height = 500)
+)
+```
+
