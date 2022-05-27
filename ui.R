@@ -3,6 +3,7 @@
 #
 
 library(shiny)
+library(plotly)
 
 # Define UI for application that draws a box plot
 shinyUI(
@@ -11,16 +12,12 @@ shinyUI(
     # Application title
     titlePanel("Carbon Dioxide Uptake in Grass Plants"),
     helpText("Using R built in CO2 dataset, compares 3 plants, 
-             in 2 cities, under 2 treatments."),
+             in 2 locations, under 2 treatments."),
 
     # Sidebar with a slider input for number of bins
     sidebarLayout(
         sidebarPanel(
-            selectInput("data", 
-                        label =("Select x"),
-                        choices = c("Concentration", 
-                                    "Uptake"),
-                        selected = "Concentration"),
+
             selectInput("var", 
                         label = ("Select variable"),
                         choices = c("Plant",
